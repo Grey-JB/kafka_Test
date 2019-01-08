@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>信息采集</title>
+<script
+	src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</script>
+<script type="text/javascript">
+	(function() {
+		var startTime = Math.ceil(new Date().getTime() / 1000), //单位秒
+		getDuration = function() {
+			var time = '', hours = 0, minutes = 0, seconds = 0, endTime = Math
+					.ceil(new Date().getTime() / 1000), duration = endTime
+					- startTime;
+
+			hours = Math.floor(duration / 3600); //停留小时数
+			minutes = Math.floor(duration % 3600 / 60); //停留分钟数
+			seconds = Math.floor(duration % 3600 % 60); //停留秒数
+
+			time = (hours < 10 ? '0' + hours : hours) + ':'
+					+ (minutes < 10 ? '0' + minutes : minutes) + ':'
+					+ (seconds < 10 ? '0' + seconds : seconds);
+
+			return time;
+		};
+		window.onbeforeunload = function(e) {
+			$.post("http://localhost:8070/helloboot/hello/" + my()+"/"+getDuration(), null, function(res) {
+			}, "json");
+		};
+		function my() {
+			var ua = navigator.userAgent.toLowerCase();
+
+			var isStrict = document.compatMode == "CSS1Compat"
+			isOpera = ua.indexOf("opera") > -1
+			isChrome = ua.indexOf("chrome") > -1
+			isSafari = !isChrome && (/webkit|khtml/).test(ua)
+			isSafari3 = isSafari && ua.indexOf('webkit/5') != -1
+			isIE = !isOpera && ua.indexOf("msie") > -1
+			isIE7 = !isOpera && ua.indexOf("msie 7") > -1
+			isIE8 = !isOpera && ua.indexOf("msie 8") > -1
+			isGecko = !isSafari && !isChrome && ua.indexOf("gecko") > -1
+			isGecko3 = isGecko && ua.indexOf("rv:1.9") > -1
+			isBorderBox = isIE && !isStrict
+
+			isWin7 = ua.indexOf("nt 6.1") > -1
+			isVista = ua.indexOf("nt 6.0") > -1
+			isWin2003 = ua.indexOf("nt 5.2") > -1
+			isWin10 = ua.indexOf("nt 10.0") > -1
+
+			isWinXp = ua.indexOf("nt 5.1") > -1
+			isWin2000 = ua.indexOf("nt 5.0") > -1
+			isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1)
+			isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1)
+			isAir = (ua.indexOf("adobeair") != -1)
+			isLinux = (ua.indexOf("linux") != -1)
+			var sys = "";
+			var broser = "";
+
+			if (isIE) {
+				broser = "IE 6";
+			} else if (isIE7) {
+				broser = "IE 7";
+			} else if (isIE8) {
+				broser = "IE 8";
+			} else if (isOpera) {
+				broser = "Opera";
+			} else if (isChrome) {
+				broser = "Chrome";
+			} else if (isSafari) {
+				broser = "Safari";
+			} else if (isSafari3) {
+				broser = "Safari3";
+			} else {
+				broser = "Unknow";
+			}
+			if (isWin7) {
+				sys = "Windows 7";
+			} else if (isWin10) {
+				sys = "Windows 10";
+			} else if (isVista) {
+				sys = "Vista";
+			} else if (isWinXp) {
+				sys = "Windows xp";
+			} else if (isWin2003) {
+				sys = "Windows 2003";
+			} else if (isWin2000) {
+				sys = "Windows 2000";
+			} else if (isWindows) {
+				sys = "Windows";
+			} else if (isMac) {
+				sys = "Macintosh";
+			} else if (isAir) {
+				sys = "Adobeair";
+			} else if (isLinux) {
+				sys = "Linux";
+			} else {
+				sys = "Unknow";
+			}
+			alert(sys + ":" + broser + ":" + returnCitySN["cip"]);
+			return sys + ":" + broser + ":" + returnCitySN["cip"];
+		}
+	})();
+</script>
+
+</head>
+<body>
+</body>
+</html>
